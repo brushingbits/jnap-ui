@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.brushingbits</groupId>
+	<artifactId>jnap-ui</artifactId>
+	<packaging>jar</packaging>
+	<version>0.1.0</version>
+	<name>jNapUI</name>
+	<url>http://www.brushingbits.com/projects/jnap-ui</url>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Daniel Rochetti</name>
+			<email>daniel.rochetti@gmail.com</email>
+			<organization>Brushing Bits, Inc</organization>
+			<organizationUrl>http://www.brushingbits.com</organizationUrl>
+			<timezone>-3</timezone>
+		</developer>
+	</developers>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.7</version>
+			</plugin>
+			<plugin>
+  				<groupId>com.mobilvox.ossi.mojo</groupId>
+  				<artifactId>maven-js-plugin</artifactId>
+				<version>1.3.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.myfaces.tobago</groupId>
+				<artifactId>maven-apt-plugin</artifactId>
+				<version>1.0.23</version>
+				<configuration>
+					<A>uri=/jnapui-tags,tlibVersion=2.2,jspVersion=2.0,shortName=x,
+						displayName="jNapUI Tags",
+						outFile=${basedir}/target/classes/META-INF/jnapui-tags.tld,
+						description="TODO",
+						outTemplatesDir=${basedir}/target/tags-docs
+                    </A>
+					<resourceTargetPath>target</resourceTargetPath>
+					<fork>false</fork>
+					<force>true</force>
+					<nocompile>true</nocompile>
+					<showWarnings>true</showWarnings>
+					<factory>org.apache.struts.annotations.taglib.apt.TLDAnnotationProcessorFactory</factory>
+					<target>1.5</target>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/js</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources> 
+	</build>
+
+	<properties>
+		<struts.version>2.1.8.1</struts.version>
+		<jackson.version>1.5.0</jackson.version>
+	</properties>
+
+	<dependencies>
+
+		<!-- Java provided APIs -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Struts2 -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-core</artifactId>
+			<version>${struts.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-test</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Jackson (JSON Des/Serialization) -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${jackson.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!--
+			'struts-annotations' must be in compile scope for maven-apt-plugin to function
+			correctly. Marking it optional will exclude it from transitive dependency
+			resolution.
+		-->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts-annotations</artifactId>
+			<version>1.0.5</version>
+			<scope>compile</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Commons -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.4</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- jUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>
